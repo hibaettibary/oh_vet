@@ -19,15 +19,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-<<<<<<< Updated upstream
-    
     - assets/inscription.png
     - assets/google.png
     - assets/facebook.png
-    - assets/Title.png
     - assets/accept.png
-=======
     - assets/logo.png
-
     - assets/google_icon.png
->>>>>>> Stashed changes
+    - assets/logo_ohvet.png
+     

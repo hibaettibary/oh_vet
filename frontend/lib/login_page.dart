@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'signup_page.dart'; // Import ajouté
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -122,24 +123,15 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildSeparator() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Expanded(child: Divider()),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: const Text(
-            '- OR -',
-            style: TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 13.57,
-            ),
-          ),
-        ),
-        const Expanded(child: Divider()),
-      ],
-    );
-  }
+  return const Text(
+    '- OR -',
+    style: TextStyle(
+      fontWeight: FontWeight.w700,
+      fontSize: 13.57,
+    ),
+    textAlign: TextAlign.center,
+  );
+}
 
   Widget _buildInputField({
     required String label,
@@ -208,9 +200,10 @@ class _LoginPageState extends State<LoginPage> {
         const SizedBox(height: 4),
         Stack(
           children: [
-            const TextField(
+            TextField( // Correction : retrait du const
+              controller: _passwordController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: '••••••••••••••',
                 border: InputBorder.none,
               ),
@@ -321,7 +314,12 @@ class _LoginPageState extends State<LoginPage> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           side: const BorderSide(color: Colors.transparent),
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SignUpPage()),
+          );
+        },
         child: const Text(
           'Sign Up',
           style: TextStyle(color: Color(0xFF000000)),

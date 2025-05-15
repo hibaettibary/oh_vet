@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'produit.dart';
 
 
 void main() => runApp(const OhVetApp());
@@ -17,6 +18,8 @@ class OhVetApp extends StatelessWidget {
         primaryColor: const Color(0xFF05485D),
       ),
       home: const LoginPage(),
+      home: ProduitApp(),
+
     );
   }
 }

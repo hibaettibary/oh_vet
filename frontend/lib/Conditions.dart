@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 bool _showMoreConditions = false;
 String? _selectedOption;
-
-
+import 'produit.dart'; // Import ajouté
 
 class ConditionsPage extends StatefulWidget {
   const ConditionsPage({Key? key}) : super(key: key);
@@ -181,7 +180,13 @@ class _ConditionsPageState extends State<ConditionsPage> {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () => _acceptAll(context),
+                   onPressed: () {
+           
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ProduitApp()),
+                            );
+                          },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent,

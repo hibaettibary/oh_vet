@@ -19,4 +19,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/logo.png  # Configuration pour le logo
+    
+    - assets/inscription.png
+    - assets/google.png
+    - assets/facebook.png
+    - assets/Title.png
+    - assets/accept.png

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'login_page.dart';
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -269,7 +269,14 @@ class _SignUpPageState extends State<SignUpPage> {
         borderRadius: BorderRadius.circular(8),
       ),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+           
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const LoginPage()),
+                            );
+                          },
+        
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,

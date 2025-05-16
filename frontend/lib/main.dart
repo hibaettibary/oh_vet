@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'inscription.dart';
 import 'signup_page.dart';
 import 'login_page.dart';
+import 'contactVend.dart';
 
 void main() => runApp(const OhVetApp());
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-
+import 'contactVend.dart';
 class ConditionsPage extends StatefulWidget {
   const ConditionsPage({Key? key}) : super(key: key);
 
@@ -205,7 +205,13 @@ Pour plus de détails, veuillez consulter les documents liés à la protection d
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
-                onPressed: () => _acceptAll(context),
+                onPressed: () {
+           
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ContactVend()),
+                            );
+                          },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,
@@ -244,7 +250,9 @@ Pour plus de détails, veuillez consulter les documents liés à la protection d
             ),
             const SizedBox(height: 10),
             OutlinedButton(
-              onPressed: () => _navigateToSettings(context),
+              onPressed: ()=> _navigateToSettings(context),
+
+               
               style: OutlinedButton.styleFrom(
                 backgroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 15),

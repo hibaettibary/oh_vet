@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+<<<<<<< HEAD:frontend/lib/Conditions.dart
 import 'produit.dart'; // Import du fichier produit.dart
 
+=======
+import 'contactVend.dart';
+>>>>>>> 61323f768455b1d6af1011c1c220bfe22d63fe6f:frontend/lib/screens/Conditions.dart
 class ConditionsPage extends StatefulWidget {
   const ConditionsPage({super.key});
 
@@ -197,7 +201,17 @@ Pour plus de détails, veuillez consulter les documents liés à la protection d
               width: double.infinity,
               height: 50,
               child: ElevatedButton(
+<<<<<<< HEAD:frontend/lib/Conditions.dart
                 onPressed: () => _goToProduitPage(context),
+=======
+                onPressed: () {
+           
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const ContactVend()),
+                            );
+                          },
+>>>>>>> 61323f768455b1d6af1011c1c220bfe22d63fe6f:frontend/lib/screens/Conditions.dart
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.transparent,
                   shadowColor: Colors.transparent,
@@ -240,7 +254,9 @@ Pour plus de détails, veuillez consulter les documents liés à la protection d
             ),
             const SizedBox(height: 10),
             OutlinedButton(
-              onPressed: () => _navigateToSettings(context),
+              onPressed: ()=> _navigateToSettings(context),
+
+               
               style: OutlinedButton.styleFrom(
                 backgroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 15),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'inscription.dart';
+import 'signup_page.dart';
 import 'login_page.dart';
 import 'produit.dart';
-
 
 void main() => runApp(const OhVetApp());
 
@@ -11,15 +12,18 @@ class OhVetApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Oh!vet',
       debugShowCheckedModeBanner: false,
+      title: 'Oh!vet',
       theme: ThemeData(
+        primarySwatch: Colors.teal,
         fontFamily: 'Circular Std',
-        primaryColor: const Color(0xFF05485D),
       ),
-      home: const LoginPage(),
-      home: ProduitApp(),
-
+      home: const InscriptionPage(),
+      routes: {
+         '/signup': (context) => const SignUpPage(),
+         '/login': (context) => const LoginPage(),
+         '/produit': (context) => ProduitApp(),  // sans const
+},
     );
   }
 }

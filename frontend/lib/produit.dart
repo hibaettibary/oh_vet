@@ -1,330 +1,188 @@
 import 'package:flutter/material.dart';
 
+void main() => runApp(ProduitApp());
+
 class ProduitApp extends StatelessWidget {
+  const ProduitApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Application complète',
-      home: MainNavigation(),
-    );
-  }
-}
-
-class MainNavigation extends StatefulWidget {
-  @override
-  _MainNavigationState createState() => _MainNavigationState();
-}
-
-class _MainNavigationState extends State<MainNavigation> {
-  int _currentIndex = 0;
-  final List<Widget> _screens = [
-    CategorySelectionPage(),
-    TablePage(),
-    ItemDetailPage(),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.category),
-            label: 'Catégories',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.table_chart),
-            label: 'Tableaux',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_bag),
-            label: 'Produit',
-          ),
-        ],
-        onTap: (index) => setState(() => _currentIndex = index),
+      debugShowCheckedModeBanner: false,
+      title: 'Application E-Commerce',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        // Définir la couleur d'arrière-plan ici pour l'ensemble de l'application
+        scaffoldBackgroundColor: const Color(0xFFFFFFFF),
       ),
+      home: CategorySelectionPage(),
     );
   }
 }
 
-// Page de sélection de catégorie
 class CategorySelectionPage extends StatefulWidget {
+  const CategorySelectionPage({super.key});
+
   @override
   _CategorySelectionPageState createState() => _CategorySelectionPageState();
 }
 
 class _CategorySelectionPageState extends State<CategorySelectionPage> {
-  int _selectedCategory = 0;
-  final List<String> categories = ['Femme', 'Homme', 'Enfants'];
-  final List<String> sections = ['Vêtements', 'Chaussures', 'Sacs', 'Accessoires'];
+  String selectedTab = 'Femme';
+
+  final Map<String, List<Map<String, dynamic>>> categories = {
+    'Femme': [
+      {'name': 'Vêtements', 'emoji': '👚'},
+      {'name': 'Chaussures', 'emoji': '👠'},
+      {'name': 'Sacs', 'emoji': '👜'},
+      {'name': 'Accessoires', 'emoji': '💍'},
+    ],
+    'Homme': [
+      {'name': 'Vêtements', 'emoji': '👔'},
+      {'name': 'Chaussures', 'emoji': '👞'},
+      {'name': 'Accessoires', 'emoji': '⌚'},
+    ],
+    'Enfants': [
+      {'name': 'Vêtements', 'emoji': '👕'},
+      {'name': 'Jouet et Accessoires', 'emoji': '🎮'},
+      {'name': 'Mobilier enfant', 'emoji': '🍼'},
+    ],
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: List.generate(categories.length, (index) {
-                return GestureDetector(
-                  onTap: () => setState(() => _selectedCategory = index),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: _selectedCategory == index ? Colors.blue : Colors.transparent,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.blue),
-                    ),
-                    child: Text(
-                      categories[index],
-                      style: TextStyle(
-                        color: _selectedCategory == index ? Colors.white : Colors.blue,
-                      ),
-                    ),
-                  ),
-                );
-              }),
-            ),
-            SizedBox(height: 20),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 2,
-                ),
-                itemCount: sections.length,
-                itemBuilder: (context, index) => Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        sections[index],
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Container(
-                        height: 24,
-                        width: 24,
-                        decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
+      backgroundColor: const Color.fromARGB(255, 255, 251, 251),
+      appBar: AppBar(
+        title: const Text(
+          'Choisir une catégorie',
+          style: TextStyle(
+            fontFamily: 'Circular Std',
+            fontWeight: FontWeight.w700,
+            fontSize: 22.0,
+            color: Colors.black,
+          ),
         ),
-      ),
-    );
-  }
-}
-
-// Page des tableaux
-class TablePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Tableaux complexes')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            _buildFirstTable(),
-            SizedBox(height: 30),
-            _buildSecondTable(),
-            SizedBox(height: 30),
-            _buildTypeSection(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFirstTable() {
-    return Table(
-      border: TableBorder.all(),
-      columnWidths: {
-        0: FlexColumnWidth(2),
-        1: FlexColumnWidth(3),
-        2: FlexColumnWidth(2),
-      },
-      children: [
-        TableRow(
-          decoration: BoxDecoration(color: Colors.grey[200]),
-          children: [
-            _buildHeaderCell('Witness'),
-            _buildHeaderCell('Name of success'),
-            _buildHeaderCell('Number related'),
-          ],
-        ),
-        ..._buildTableRows([
-          ['Maps', 'Time & hours', 'Percentage'],
-          ['Sounds', 'None of the', 'Number'],
-          ['Time & Hours', 'None', 'Number'],
-          ['Total', 'None', 'Number'],
-        ]),
-      ],
-    );
-  }
-
-  Widget _buildSecondTable() {
-    return Table(
-      border: TableBorder.all(),
-      columnWidths: {
-        0: FlexColumnWidth(3),
-        1: FlexColumnWidth(3),
-        2: FlexColumnWidth(2),
-        3: FlexColumnWidth(3),
-      },
-      children: [
-        TableRow(
-          decoration: BoxDecoration(color: Colors.grey[200]),
-          children: [
-            _buildHeaderCell('Nomination'),
-            _buildHeaderCell("Chairman's"),
-            _buildHeaderCell('Size'),
-            _buildHeaderCell('Accessories'),
-          ],
-        ),
-        ..._buildTableRows([
-          ['Insurance & costs', 'home', 'Box 1 Point', 'Sales'],
-          ['Limited and Legal rights', 'Consumer Labor', 'LIFE 1 Installation', 'Reserve'],
-        ]),
-      ],
-    );
-  }
-
-  Widget _buildTypeSection() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('TYPE:', style: TextStyle(fontWeight: FontWeight.bold)),
-        SizedBox(
-          height: 200,
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 4,
-            ),
-            itemCount: 50,
-            itemBuilder: (context, index) => Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-              child: Text('0.${index + 1}'),
+        centerTitle: true,
+        backgroundColor: const Color(0xFFFFFFFF),
+        elevation: 1,
+        foregroundColor: Colors.black,
+        bottom: const PreferredSize(
+          preferredSize: Size.fromHeight(1.0),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 80.0),
+            child: Divider(
+              color: Color(0xFFCDCDCD),
+              height: 1.0,
+              thickness: 1.0,
             ),
           ),
         ),
-      ],
+      ),
+      body: Column(
+        children: [
+          _buildTabs(),
+          Expanded(child: _buildCategoryList()),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.add), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications_none), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ''),
+        ],
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
+        showSelectedLabels: false,
+      ),
     );
   }
 
-  List<TableRow> _buildTableRows(List<List<String>> data) {
-    return data.map((row) => TableRow(
-      children: row.map((cell) => Padding(
-        padding: EdgeInsets.all(8.0),
-        child: Text(cell),
-      )).toList(),
-    )).toList();
-  }
-
-  Widget _buildHeaderCell(String text) {
-    return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: Text(text, style: TextStyle(fontWeight: FontWeight.bold)),
+  Widget _buildTabs() {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: ['Femme', 'Homme', 'Enfants'].map((tab) {
+          final isSelected = selectedTab == tab;
+          return GestureDetector(
+            onTap: () => setState(() => selectedTab = tab),
+            child: Column(
+              children: [
+                Text(
+                  tab,
+                  style: TextStyle(
+                    fontFamily: 'Circular Std',
+                    fontWeight: FontWeight.w700,
+                    fontSize: 16.0,
+                    color: isSelected ? Colors.black : Colors.grey,
+                  ),
+                ),
+                if (isSelected)
+                  Container(
+                    margin: const EdgeInsets.only(top: 4),
+                    height: 2,
+                    width: 40,
+                    decoration: const BoxDecoration( // Ajout de la BoxDecoration
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Color(0xFF18B4BC), // Couleur de la bordure : bleu clair
+                          width: 1.0,                 // Épaisseur de la bordure : 1px
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
-}
 
-// Page de détail de l'article
-class ItemDetailPage extends StatefulWidget {
-  @override
-  _ItemDetailPageState createState() => _ItemDetailPageState();
-}
+  Widget _buildCategoryList() {
+    final selectedCategories = categories[selectedTab] ?? [];
 
-class _ItemDetailPageState extends State<ItemDetailPage> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _descriptionController = TextEditingController();
+    return ListView.builder(
+      itemCount: selectedCategories.length,
+      itemBuilder: (context, index) {
+        final item = selectedCategories[index];
+        final leadingWidget = Text(
+          item['emoji'] ?? '🛍️',
+          style: const TextStyle(fontSize: 24),
+        );
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Détail produit')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              _buildInfoRow('Titre', 'Jhonathane'),
-              _buildInfoRow('Type d’élément', 'Choissire'),
-              _buildInfoRow('Marque', 'Nike'),
-              _buildInfoRow('Taille', '42 / L'),
-              _buildPriceRow('Prix de vente', '1200,00 MAD'),
-              _buildPriceRow('Prix régulier', '1200,00 MAD'),
-              _buildInfoRow('Genre', 'Homme'),
-              _buildInfoRow('Categorie', 'Chaussure'),
-              _buildInfoRow('Sous-Categorie', 'Choisoire'),
-              SizedBox(height: 20),
-              Text('Description:', style: TextStyle(fontWeight: FontWeight.bold)),
-              TextFormField(
-                controller: _descriptionController,
-                maxLines: 5,
-                decoration: InputDecoration(
-                  hintText: 'Ecrire ici...',
-                  border: OutlineInputBorder(),
+        return Column(
+          children: [
+            ListTile(
+              leading: leadingWidget,
+              title: Text(
+                item['name'],
+                style: const TextStyle(
+                  fontFamily: 'Circular Std',
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16.0,
+                  color: Colors.black,
                 ),
               ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () => _handleUpdate(),
-                child: Text('UPDATE'),
+              trailing: const Icon(Icons.chevron_right),
+              onTap: () {},
+            ),
+            if (index < selectedCategories.length - 1)
+              const Divider(
+                color: Colors.grey,
+                thickness: 1.0,
+                indent: 15,
+                endIndent: 15,
               ),
-            ],
-          ),
-        ),
-      ),
+          ],
+        );
+      },
     );
-  }
-
-  Widget _buildInfoRow(String label, String value) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          Expanded(flex: 2, child: Text(label, style: TextStyle(fontWeight: FontWeight.bold))),
-          Expanded(flex: 3, child: Text(value)),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPriceRow(String label, String value) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          Expanded(flex: 2, child: Text(label, style: TextStyle(fontWeight: FontWeight.bold))),
-          Expanded(flex: 3, child: Text(value, style: TextStyle(color: Colors.green))),
-        ],
-      ),
-    );
-  }
-
-  void _handleUpdate() {
-    if (_formKey.currentState!.validate()) {
-      print('Description mise à jour: ${_descriptionController.text}');
-    }
   }
 }
+

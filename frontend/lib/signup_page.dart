@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
@@ -26,66 +27,61 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         ),
         child: SafeArea(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 60),
-                Image.asset(
-                  'assets/logo_ohvet.png',
-                  height: 100,
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 400),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 30), // Réduit l'espace après le SafeArea
+                    Image.asset(
+                      'assets/logo_ohvet.png',
+                      height: 100,
+                    ),
+                    const SizedBox(height: 20), // Réduit l'espace après le logo
+                    _buildSocialButton(
+                      color: const Color(0xFF425F9E),
+                      icon: 'f',
+                      text: 'Sign Up with Facebook',
+                      isFacebook: true,
+                    ),
+                    const SizedBox(height: 10), // Réduit l'espace après le bouton Facebook
+                    _buildSocialButton(
+                      color: Colors.white,
+                      icon: 'assets/google_icon.png',
+                      text: 'Continuer avec Google',
+                      textColor: const Color(0xFF4285F4),
+                    ),
+                    const SizedBox(height: 16), // Réduit l'espace avant le séparateur
+                    _buildSeparator(),
+                    const SizedBox(height: 16), // Réduit l'espace après le séparateur
+                    _buildInputField(
+                      label: 'Email Address',
+                      hint: 'contact@ohvet.ma',
+                      controller: _emailController,
+                    ),
+                    const SizedBox(height: 16), // Réduit l'espace après l'e-mail
+                    _buildPasswordField(),
+                    const SizedBox(height: 16), // Réduit l'espace après le mot de passe
+                    _buildInputField(
+                      label: 'Confirm Password',
+                      hint: '••••••••••••••',
+                      controller: _confirmPasswordController,
+                    ),
+                    const SizedBox(height: 8), // Réduit l'espace avant "Remember me"
+                    _buildRememberMeSection(),
+                    const SizedBox(height: 16), // Réduit l'espace avant le bouton "Sign Up"
+                    _buildSignUpButton(),
+                    const SizedBox(height: 10), // Réduit l'espace avant le bouton "Login"
+                    _buildLoginButton(),
+                    const SizedBox(height: 16), // Réduit l'espace avant le texte du bas
+                    _buildFooterText(),
+                    const SizedBox(height: 16), // Réduit l'espace après le texte du bas
+                  ],
                 ),
-                const SizedBox(height: 40),
-
-                _buildSocialButton(
-                  color: const Color(0xFF425F9E),
-                  icon: 'f',
-                  text: 'Sign Up with Facebook',
-                  isFacebook: true,
-                ),
-                const SizedBox(height: 16),
-
-                _buildSocialButton(
-                  color: Colors.white,
-                  icon: 'assets/google_icon.png',
-                  text: 'Continuer avec Google',
-                  textColor: const Color(0xFF4285F4),
-                ),
-                const SizedBox(height: 24),
-
-                _buildSeparator(),
-                const SizedBox(height: 24),
-
-                _buildInputField(
-                  label: 'Email Address',
-                  hint: 'contact@ohvet.ma',
-                  controller: _emailController,
-                ),
-                const SizedBox(height: 24),
-
-                _buildPasswordField(),
-                const SizedBox(height: 24),
-
-                _buildInputField(
-                  label: 'Confirm Password',
-                  hint: '••••••••••••••',
-                  controller: _confirmPasswordController,
-                ),
-                const SizedBox(height: 12),
-
-                _buildRememberMeSection(),
-                const SizedBox(height: 24),
-
-                _buildSignUpButton(),
-                const SizedBox(height: 16),
-
-                _buildLoginButton(),
-                const SizedBox(height: 24),
-
-                _buildFooterText(),
-                const SizedBox(height: 24),
-              ],
+              ),
             ),
           ),
         ),
@@ -117,14 +113,14 @@ class _SignUpPageState extends State<SignUpPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             isFacebook
-                ? Text(
-                    'f',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
+                ? const Text(
+              'f',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            )
                 : Image.asset(icon, width: 24, height: 24),
             const SizedBox(width: 12),
             Text(
@@ -270,13 +266,11 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
       child: ElevatedButton(
         onPressed: () {
-           
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const LoginPage()),
-                            );
-                          },
-        
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPage()),
+          );
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
